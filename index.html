@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>AngularBlog</title>
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/github.min.css">
     <style>
 
     @import url(http://fonts.googleapis.com/css?family=Raleway);
@@ -21,6 +22,7 @@
         background-image: url('images/tweed/tweed.png');
         font-family: 'Roboto Slab', serif;
         font-size: 13px;
+        overflow-y: scroll;
     }
 
     h1 {
@@ -56,9 +58,27 @@
         font-size: 2em;
     }
 
+    .posts a {
+        text-decoration: none;
+    }
+
+    .posts a:hover {
+        border-bottom: 1px solid rgba(0, 0, 255, 0.1);
+    }
+
     #title a:hover {
         color: #e1e1e1;
         border-bottom: 1px solid #e1e1e1;
+    }
+
+    .filename {
+        text-align: right;
+        font-weight: bolder;
+        font-size: 1.5em;
+    }
+
+    .filename:before {
+        content: '⬋ ';
     }
 
     .container {
@@ -74,54 +94,59 @@
     }
 </style>
 </head>
-<body ng-app="BlogApp">
+<body>
     <div class="header">
         <h1 id="title"><a href="#">AngularBlog</a></h1>
     </div>
-    <div class="container">
+    <div class="container" id="MainApp">
         <ng-view></ng-view>
     </div>
+    
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-route.js"></script>
+    <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+    <script src="http://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script>
     <script>
     /*globals angular: true */
-    var app = angular.module('BlogApp', ['ngRoute']);
 
-    app.config(function ($routeProvider) {
-        $routeProvider.when('/posts/:filename', {
-            templateUrl: 'views/post.html',
-            controller: 'PostCtrl'
-        });
-        $routeProvider.otherwise({
-            templateUrl: 'views/posts.html',
-            controller: 'IndexCtrl'
-        });
-    });
-
-    app.controller('IndexCtrl', function ($scope, $http, $location) {
-        console.log('index');
-        $http({method: 'GET', url: 'posts.json'})
-            .success(function (res) {
-                $scope.posts = res;
-                $scope.post = $scope.posts[0];
+    angular.element(document).ready(function() {
+        var app = angular.module('blogApp', ['ngRoute', 'hljs']);
+        app.config(function ($routeProvider) {
+            $routeProvider.when('/posts/:filename', {
+                templateUrl: 'views/post.html',
+                controller: 'PostCtrl'
             });
-
-        $scope.path = function (url) {
-            $location.path(url);
-        };
-    });
-
-    app.controller('PostCtrl', function ($scope, $http, $routeParams) {
-        $scope.filename = 'posts/' + $routeParams.filename;
-        $http({method: 'GET', url: 'posts.json'})
-            .success(function (res) {
-                $scope.posts = res;
-                for (var i = $scope.posts.length - 1; i >= 0; i--) {
-                    if($scope.posts[i].url = $scope.filename) {
-                        $scope.post = $scope.posts[i];
-                    }
-                };
+            $routeProvider.otherwise({
+                templateUrl: 'views/posts.html',
+                controller: 'IndexCtrl'
             });
+        });
+
+        app.controller('IndexCtrl', function ($scope, $http, $location) {
+            console.log('index');
+            $http({method: 'GET', url: 'posts.json'})
+                .success(function (res) {
+                    $scope.posts = res;
+                });
+
+            $scope.path = function (url) {
+                $location.path(url);
+            };
+        });
+
+        app.controller('PostCtrl', function ($scope, $http, $routeParams) {
+            $scope.filename = 'posts/' + $routeParams.filename;
+            $http({method: 'GET', url: 'posts.json'})
+                .success(function (res) {
+                    $scope.posts = res;
+                    for (var i = $scope.posts.length - 1; i >= 0; i--) {
+                        if($scope.posts[i].url = $scope.filename) {
+                            $scope.post = $scope.posts[i];
+                        }
+                    };
+                });
+        });
+        angular.bootstrap(document,['blogApp']);
     });
     </script>
 </body>

@@ -1,12 +1,17 @@
 [
     {
         "date": "2013-09-24",
+        "title": "This is a post",
+        "url": "posts/2013-09-24-This-is-a-post"
+    },
+    {
+        "date": "2013-09-24",
         "title": "hello world",
-        "url": "posts/2013-09-24-hello-world.html"
+        "url": "posts/2013-09-24-hello-world"
     },
     {
         "date": "2013-08-04",
         "title": "Welcome to my blog",
-        "url": "posts/2013-08-04-Welcome-to-my-blog.html"
+        "url": "posts/2013-08-04-Welcome-to-my-blog"
     }
 ]

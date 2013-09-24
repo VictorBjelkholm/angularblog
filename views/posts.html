@@ -1,4 +1,4 @@
-<div ng-show="posts" ng-repeat="p in posts">
-    <h3 >{{p.date}} - <a href="" ng-click="path(p.url)">{{ p.title }}</a></h3>
-    <div ng-include="p.url"></div>
+<div class="posts" ng-show="posts" ng-repeat="p in posts">
+    <h1>{{p.date}} - <a href="" ng-click="path(p.url)">{{ p.title }}</a></h1>
+    <div ng-include="p.url + '.html'"></div>
 </div>
