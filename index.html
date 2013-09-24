@@ -146,6 +146,13 @@
                     };
                 });
         });
+
+        app.directive('ngCode', function () {
+            return {
+                restrict: 'E',
+                template: '<p>ads</p>',
+            }
+        });
         angular.bootstrap(document,['blogApp']);
     });
     </script>
