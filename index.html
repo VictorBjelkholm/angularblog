@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularBlog</title>
+    <style>
+
+    @import url(http://fonts.googleapis.com/css?family=Raleway);
+    @import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: auto;
+        width: auto;
+        color: #444;
+    }
+
+    html {
+        /*background-color: rgba(60, 60, 60, 0.7);*/
+        background-image: url('images/tweed/tweed.png');
+        font-family: 'Roboto Slab', serif;
+        font-size: 13px;
+    }
+
+    h1 {
+        margin: 0; padding: 0;
+    }
+
+    [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+    }
+
+    [ng-click] {
+        color: blue;
+        text-decoration: underline;
+    }
+
+    [ng-click]:hover {
+        cursor: pointer;
+        color: #000;
+    }
+
+    .header {
+        width: 100%;
+        text-align: center;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    #title a {
+        color: white;
+        text-decoration: none;
+        padding-bottom: 4px;
+        font-family: 'Raleway', sans-serif;
+        font-size: 2em;
+    }
+
+    #title a:hover {
+        color: #e1e1e1;
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0em auto;
+        margin-bottom: 2em;
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 1em;
+    }
+
+    .container img {
+        max-width: 900px;
+    }
+</style>
+</head>
+<body ng-app="BlogApp">
+    <div class="header">
+        <h1 id="title"><a href="#">AngularBlog</a></h1>
+    </div>
+    <div class="container">
+        <ng-view></ng-view>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-route.js"></script>
+    <script>
+    /*globals angular: true */
+    var app = angular.module('BlogApp', ['ngRoute']);
+
+    app.config(function ($routeProvider) {
+        $routeProvider.when('/posts/:filename', {
+            templateUrl: 'views/post.html',
+            controller: 'PostCtrl'
+        });
+        $routeProvider.otherwise({
+            templateUrl: 'views/posts.html',
+            controller: 'IndexCtrl'
+        });
+    });
+
+    app.controller('IndexCtrl', function ($scope, $http, $location) {
+        console.log('index');
+        $http({method: 'GET', url: 'posts.json'})
+            .success(function (res) {
+                $scope.posts = res;
+                $scope.post = $scope.posts[0];
+            });
+
+        $scope.path = function (url) {
+            $location.path(url);
+        };
+    });
+
+    app.controller('PostCtrl', function ($scope, $http, $routeParams) {
+        $scope.filename = 'posts/' + $routeParams.filename;
+        $http({method: 'GET', url: 'posts.json'})
+            .success(function (res) {
+                $scope.posts = res;
+                for (var i = $scope.posts.length - 1; i >= 0; i--) {
+                    if($scope.posts[i].url = $scope.filename) {
+                        $scope.post = $scope.posts[i];
+                    }
+                };
+            });
+    });
+    </script>
+</body>
+</html>
