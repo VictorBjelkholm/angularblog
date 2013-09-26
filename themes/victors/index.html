@@ -1,0 +1,6 @@
+<div ng-repeat="post in posts">
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content | first: 50 }}</p>
+    <p>Posted {{ post.date }}</p>
+    <hr>
+</div>
