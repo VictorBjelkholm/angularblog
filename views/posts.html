@@ -1,9 +1,0 @@
-{{ config }}
-<div id="posts">
-    <div ng-show="posts" ng-repeat="p in posts">
-        <div class="mini-header" ng-click="path(p.url)">
-            <h1><a ng-href="">{{p.date}} - {{ p.title }}</a></h1>
-        </div>
-        <div ng-include="p.url + '.html'"></div>
-    </div>
-</div>

@@ -1,8 +1,4 @@
 <div id="posts">
-    <h2>This is the posts view</h2>
-    <p>
-        From the theme named {{ config.theme }}
-    </p>
     <div ng-show="posts" ng-repeat="p in posts">
         <div class="mini-header" ng-click="path(p.url)">
             <h1><a ng-href="">{{p.date}} - {{ p.title }}</a></h1>

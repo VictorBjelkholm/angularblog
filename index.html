@@ -4,34 +4,26 @@
     <meta charset="UTF-8">
     <title>AngularBlog</title>
     <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/github.min.css">
-    <!-- <link rel="stylesheet" href="/themes/victors/css/style.css"> -->
 </head>
 <body ng-app="blogApp">
+    <!-- Need to move to theme -->
     <div class="header">
         <h1 id="title"><a ng-href="#">AngularBlog</a></h1>
     </div>
     <div class="container" controller="IndexCtrl">
         <div id="view" ng-view></div>
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-route.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.js"></script>
-    <!-- <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
-    <script src="http://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script> -->
+    <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+    <script src="http://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script>
     
+    <script src="/app/directives.js"></script>
     <script src="/app/providers.js"></script>
     <script src="/app/controllers.js"></script>
     <script src="/app/module.js"></script>
-    <script>
-    /*globals angular: true */
-        // app.directive('ngCode', function () {
-        //     return {
-        //         restrict: 'E',
-        //         template: '<p>ads</p>',
-        //     }
-        // });
-    </script>
 </body>
 </html>

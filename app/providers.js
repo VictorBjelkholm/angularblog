@@ -18,6 +18,5 @@ angular.module('blogApp.providers', [])
         };
 
         // this.getConfig = function ($http) {
-            
         // };
     });
