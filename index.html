@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/github.min.css">
     <!-- <link rel="stylesheet" href="/themes/victors/css/style.css"> -->
 </head>
-<body id="MainApp">
+<body ng-app="blogApp">
     <div class="header">
         <h1 id="title"><a ng-href="#">AngularBlog</a></h1>
     </div>
@@ -26,85 +26,19 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-route.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.js"></script>
-    <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
-    <script src="http://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script>
+    <!-- <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+    <script src="http://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script> -->
+    
+    <script src="/app/controllers.js"></script>
+    <script src="/app/module.js"></script>
     <script>
     /*globals angular: true */
-
-    angular.element(document).ready(function() {
-        var app = angular.module('blogApp', ['ngRoute', 'ngAnimate', 'hljs']);
-        app.config(function ($routeProvider) {
-            $routeProvider.when('/posts/:filename', {
-                templateUrl: 'views/post.html',
-                controller: 'PostCtrl'
-            });
-            $routeProvider.otherwise({
-                templateUrl: 'views/posts.html',
-                controller: 'IndexCtrl'
-            });
-        });
-
-        app.controller('IndexCtrl', function ($scope, $http, $location, $document) {
-            $scope.config = "bajs";
-            $http({method: 'GET', url: 'config.json'})
-                .success(function (res) {
-                    console.log($scope.config);
-                    console.log(res);
-                    $scope.config = res;
-
-                    var $ = document; // shortcut
-                    var cssId = 'myCss';  // you could encode the css path itself to generate id..
-                    if (!$.getElementById(cssId))
-                    {
-                        var head  = $.getElementsByTagName('head')[0];
-                        var link  = $.createElement('link');
-                        link.id   = cssId;
-                        link.rel  = 'stylesheet';
-                        link.type = 'text/css';
-                        link.href = "/themes/"+$scope.config.theme+"/css/style.css";
-                        link.media = 'all';
-                        head.appendChild(link);
-                    }
-
-
-                    // var fileref = $document.createElement("stylesheet");
-                    // fileref.setAttribute("type","text/css");
-                    // fileref.setAttribute("src", "/themes/"+$scope.config.theme+"/css/style.css");
-                    // $document.getElementsByTagName("head")[0].appendChild(fileref);
-
-                    console.log($scope.config);
-                });
-            $http({method: 'GET', url: 'posts.json'})
-                .success(function (res) {
-                    $scope.posts = res;
-                });
-
-            $scope.path = function (url) {
-                $location.path(url);
-            };
-        });
-
-        app.controller('PostCtrl', function ($scope, $http, $routeParams) {
-            $scope.filename = 'posts/' + $routeParams.filename;
-            $http({method: 'GET', url: 'posts.json'})
-                .success(function (res) {
-                    $scope.posts = res;
-                    for (var i = $scope.posts.length - 1; i >= 0; i--) {
-                        if($scope.posts[i].url = $scope.filename) {
-                            $scope.post = $scope.posts[i];
-                        }
-                    };
-                });
-        });
-
-        app.directive('ngCode', function () {
-            return {
-                restrict: 'E',
-                template: '<p>ads</p>',
-            }
-        });
-        angular.bootstrap(document,['blogApp']);
-    });
+        // app.directive('ngCode', function () {
+        //     return {
+        //         restrict: 'E',
+        //         template: '<p>ads</p>',
+        //     }
+        // });
     </script>
 </body>
 </html>
