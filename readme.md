@@ -25,6 +25,10 @@ AngularBlog is the software for people who wants to run their site without any b
 
 * Style loading needs to be better
 
+##Themes
+
+* Victor.bjelkholm.com http://jsfiddle.net/kGSRq/
+
 ##Examples
 
 * victor.bjelkholm.com
