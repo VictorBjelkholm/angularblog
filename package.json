@@ -1,0 +1,30 @@
+{
+    "name": "angularblog",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.hmtl",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "keywords": [],
+    "author": "Victor Bjelkholm",
+    "license": "MIT",
+    "readmeFilename": "readme.md",
+    "gitHead": "",
+    "url": "",
+    "bugs": {
+        "url": ""
+    },
+    "devDependencies": {
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-karma": "~0.7.0",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-jshint": "~0.6.0",
+        "karma": "~0.10",
+        "karma-jasmine": "~0.1"
+    },
+    "scripts": {
+        "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
+    }
+}
