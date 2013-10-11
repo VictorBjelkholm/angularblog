@@ -22,8 +22,13 @@ angular.module('blogApp.controllers', [])
         $route,
         $routeParams,
         $location,
-        $compile
+        $compile,
+        Post
     ) {
+        $scope.posts = [];
+        Post.index(function (res) {
+            $scope.posts = res;
+        });
         Config.getConfig(function (res) {
             $scope.config = res;
             setCss($scope.config.theme);
@@ -32,10 +37,10 @@ angular.module('blogApp.controllers', [])
             $http.get($route.current.templateUrl).then(function (msg) {
                 $('#view').html($compile(msg.data)($scope));
             });
-            $http({method: 'GET', url: 'posts.json'})
-                .success(function (res) {
-                    $scope.posts = res;
-                });
+            // $http({method: 'GET', url: 'posts.json'})
+            //     .success(function (res) {
+            //         $scope.posts = res;
+            //     });
         });
         $scope.path = function (url) {
             $location.path(url);
@@ -56,5 +61,15 @@ angular.module('blogApp.controllers', [])
             $http.get($route.current.templateUrl).then(function (msg) {
                 $('#view').html($compile(msg.data)($scope));
             });
+            $http({method: 'GET', url: 'posts.json'})
+                .success(function (res) {
+                    for (var i = res.length - 1; i >= 0; i--) {
+                        var post = res[i];
+                        if(post.url === $scope.filename) {
+                            $scope.post = post;
+                        }
+                    };
+                    console.log($scope.post);
+                });
         });
     });

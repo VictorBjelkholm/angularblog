@@ -16,7 +16,28 @@ angular.module('blogApp.providers', [])
                 }
             };
         };
+    })
+    .provider('Post', function () {
+    this.$get = function ($http) {
+        var posts = this.posts;
 
-        // this.getConfig = function ($http) {
-        // };
+        var getPosts = function(cb) {
+            if(posts === undefined) {
+                $http({method: 'GET', url: 'posts.json'})
+                    .success(function (res) {
+                        cb(res);
+                        posts = res;
+                    });
+            } else {
+                cb(posts);
+            }
+        }
+
+        return {
+            index: function (cb) {
+                getPosts(cb);
+            }
+        }
+
+    }
     });
